@@ -1,0 +1,34 @@
+<project name="MVC">
+    <target name="compile">
+        <javac srcdir="src" destdir="out" classpathref="deps"/>
+    </target>
+<path id="deps">
+	<fileset dir="lib" includes="*.jar"/>
+</path>
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+		<jar destfile="build/jar/make.jar" basedir="out">
+			<zipgroupfileset dir="lib" includes="*.jar"/>
+            		<manifest>
+                		<attribute name="Main-Class" value="Main"/>
+            		</manifest>
+	
+        	</jar>
+		<copydir src="static" dest="build/jar/static"/>
+    </target>
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+	<target name="test">
+		<junit>
+    			<test name="Test"/>
+			<classpath>
+            			<pathelement location="lib"/>
+        		</classpath>
+			<batchtest fork="yes">
+                <fileset dir="src" includes="**/*Test"/>
+            </batchtest>
+		</junit>
+	</target>
+</project>
+
